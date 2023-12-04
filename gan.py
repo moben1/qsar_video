@@ -34,7 +34,7 @@ class Gan(Scene):
         for network in [generator, discriminator]:
             self.play(
                 LaggedStart(*(Create(layer) for layer in network), lag_ratio=0.1),
-                run_time=0.5
+                run_time=0.35
             )
             for i in range(len(generator_layers) - 1):
                 self.play(
@@ -43,9 +43,9 @@ class Gan(Scene):
                           for neuron in network[i]
                           for next_neuron in network[i + 1]
                           ),
-                        lag_ratio=0.01
+                        lag_ration=0.1
                     ),
-                    run_time=0.1
+                    run_time=0.35
                 )
 
         # Add labels for Generator and Discriminator
@@ -79,23 +79,23 @@ class Gan(Scene):
                     layer1 = network_layers[i]
                     # Parallelize neuron animations
                     neuron_anims = [neuron.animate.set_fill(opacity=random(), color=color_to_use) for neuron in layer1]
-                    self.play(AnimationGroup(*neuron_anims, lag_ratio=0.01), run_time=0.1)
+                    self.play(AnimationGroup(*neuron_anims, lag_ration=0.1), run_time=0.35)
 
                 layer2 = network_layers[i + 1]
                 connections_white, connections_green = all_connections[i]
 
                 # Parallelize connection animations to green
                 line_anims_to_green = [line.animate.set_opacity(1) for line in connections_green]
-                self.play(AnimationGroup(*line_anims_to_green, lag_ratio=0.01), run_time=0.1)
+                self.play(AnimationGroup(*line_anims_to_green, lag_ration=0.1), run_time=0.35)
 
                 # Parallelize neuron animations for layer 2
                 neuron_anims_layer2 = [neuron.animate.set_fill(opacity=random(), color=color_to_use) for neuron in
                                        layer2]
-                self.play(AnimationGroup(*neuron_anims_layer2, lag_ratio=0.01), run_time=0.1)
+                self.play(AnimationGroup(*neuron_anims_layer2, lag_ration=0.1), run_time=0.35)
 
                 # Parallelize connection animations back to white
                 line_anims_to_white = [line.animate.set_opacity(0) for line in connections_green]
-                self.play(AnimationGroup(*line_anims_to_white, lag_ratio=0.01), run_time=0.1)
+                self.play(AnimationGroup(*line_anims_to_white, lag_ratio=0.1), run_time=0.35)
 
         training_simulation(generator_layers, GREEN)
         # draw an arrow from generator to discriminator
