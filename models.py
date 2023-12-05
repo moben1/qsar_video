@@ -3,7 +3,7 @@ from manim import *
 
 class Models(Scene):
     def construct(self):
-        training_data = Text("Apprentissage ensembliste", font_size=18, color=BLUE).to_edge(UP)
+        training_data = Tex("Apprentissage ensembliste", font_size=28, color=BLUE).to_edge(UP)
         subsets_list = []
         for i in range(3):
             t = f"{i + 1}" if i < 2 else "n"
@@ -21,24 +21,31 @@ class Models(Scene):
             self.play(FadeIn(tree, shift=UP), run_time=2)
         self.wait()
 
+        paths = [
+            [0, 14, 1, 7, 2, 6, 5],
+            [0, 28, 15, 21, 16, 20, 19],
+            [0, 14, 1, 13, 8, 12, 11]
+        ]
+
         predictions_list = []
         for i in range(3):
             t = f"{i + 1}" if i < 2 else "n"
             predictions_list.append(Tex("$Prediction_{" + t + "}$", font_size=28, color=WHITE).next_to(trees[i], DOWN))
         predictions = VGroup(*predictions_list)
-        final_prediction = MathTex("Final Prediction = \\frac{1}{T} \\sum_{i=1}^{T} Prediction_{i}",
-                                   color=GREEN).next_to(
+
+        for i, path in enumerate(paths):
+            for j in path:
+                self.play(ApplyMethod(trees[i][j].set_color, YELLOW))
+                self.wait()
+
+        final_prediction = MathTex("Prediction finale = \\frac{1}{T} \\sum_{i=1}^{T} Prediction_{i}",
+                                   color=WHITE, font_size=28).next_to(
             predictions, DOWN, buff=1)
 
         for prediction in predictions:
             self.play(Write(prediction))
 
         self.play(Write(final_prediction))
-        self.wait()
-
-        for prediction in predictions:
-            arrow = Arrow(prediction, final_prediction, buff=0.1)
-            self.play(Create(arrow))
         self.wait()
 
     def create_decision_tree(self, root_position):
