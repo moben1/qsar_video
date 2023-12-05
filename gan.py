@@ -5,7 +5,9 @@ from manim import *
 
 class Gan(Scene):
     def construct(self):
-        # Function to create a neural network layer
+        title = Tex("Réseaux adverses génératifs", color=BLUE, font_size=48).to_edge(UP)
+        self.play(Write(title), run_time=0.5)
+
         def create_layer(num_neurons, radius=0.1, buff=0.3):
             return VGroup(
                 *[Circle(radius=radius, fill_color=WHITE, fill_opacity=1, stroke_color=BLUE, stroke_width=2) for _ in
@@ -17,7 +19,7 @@ class Gan(Scene):
         discriminator_layers = [create_layer(size) for size in [7, 5, 5, 3]]
 
         # Position the layers to form two networks
-        def position_layers(layers, spacing=1.5):
+        def position_layers(layers, spacing=1.25):
             for i, layer in enumerate(layers):
                 layer.move_to((i - 1) * spacing * RIGHT)
 
@@ -27,7 +29,7 @@ class Gan(Scene):
         # Group the networks and position them
         generator = VGroup(*generator_layers)
         discriminator = VGroup(*discriminator_layers)
-        networks = VGroup(generator, discriminator).arrange(RIGHT, buff=3)
+        networks = VGroup(generator, discriminator).arrange(RIGHT, buff=5)
         networks.move_to(ORIGIN)
 
         # Draw the networks
@@ -49,8 +51,8 @@ class Gan(Scene):
                 )
 
         # Add labels for Generator and Discriminator
-        generator_label = Text("Generator", color=BLUE).next_to(generator, DOWN)
-        discriminator_label = Text("Discriminator", color=RED).next_to(discriminator, DOWN)
+        generator_label = Text("Generateur", color=GREEN, font_size=28).next_to(generator, DOWN)
+        discriminator_label = Text("Discriminateur", color=RED, font_size=28).next_to(discriminator, DOWN)
         self.play(Write(generator_label), Write(discriminator_label), run_time=0.01)
 
         # Function to create connections between layers
@@ -98,6 +100,13 @@ class Gan(Scene):
                 self.play(AnimationGroup(*line_anims_to_white, lag_ratio=0.1), run_time=0.35)
 
         training_simulation(generator_layers, GREEN)
+
+        # Add a molecule to the scene
+        molecule = ImageMobject("smiles.png").scale(0.5)
+        self.play(FadeIn(molecule))
+        self.wait(1)
+        self.play(FadeOut(molecule))
+
         # draw an arrow from generator to discriminator
         arrow = Arrow(start=generator.get_right(), end=discriminator.get_left(), buff=0.1, stroke_width=6).set_color(
             YELLOW)
