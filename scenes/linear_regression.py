@@ -5,7 +5,7 @@ import numpy as np
 
 
 def scene_regression(scene: Scene):
-    title = Text("3 Modèles de régression linéaire", color=BLUE, font_size=48).to_edge(UP)
+    title = Tex("3 Modèles de régression linéaire", color=BLUE, font_size=48).to_edge(UP)
     scene.add(title)
     scene.play(Write(title), run_time=0.5)
 

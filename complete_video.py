@@ -16,6 +16,7 @@ class CompleteVideo(Scene):
         scene_regression(self)
         self.wait(1)
         scene_ensemble_learning(self)
+        self.wait(1)
         scene_validation(self)
         scene_documentation(self)
         self.wait(2)

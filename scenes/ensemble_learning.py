@@ -2,8 +2,15 @@ from manim import *
 
 
 def scene_ensemble_learning(scene: Scene):
-    title = Tex("3 modèles d'apprentissage ensembliste", font_size=48, color=BLUE).to_edge(UP)
+    title = Tex("3 Modèles d'apprentissage ensembliste", font_size=48, color=BLUE).to_edge(UP)
     scene.add(title)
+
+    # add images of the 3 models in the left side of the screen
+    image1 = ImageMobject("../qsar_video/images/random_forest.png").scale(0.5).to_corner(DOWN + LEFT)
+    image2 = ImageMobject("../qsar_video/images/catboost.png").scale(0.5).to_corner(UP + RIGHT)
+    image3 = ImageMobject("../qsar_video/images/xgboost.png").scale(0.5).to_corner(UP + LEFT)
+    scene.play(FadeIn(image1), FadeIn(image2), FadeIn(image3), run_time=0.5)
+
     subsets_list = []
     for i in range(3):
         t = f"{i + 1}" if i < 2 else "n"
