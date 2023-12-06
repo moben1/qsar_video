@@ -8,7 +8,7 @@ class Regression(Scene):
     def construct(self):
         title = Tex("Régression linéaire", color=BLUE, font_size=48).to_edge(UP)
         self.play(Write(title), run_time=0.5)
-        # Create axes
+
         axes = Axes(
             x_range=[0, 12, 1],
             y_range=[0, 22, 1],
@@ -30,14 +30,12 @@ class Regression(Scene):
 
         m, b = np.polyfit(x_values, y_values, 1)
 
-        # Create regression line
         regression_line = axes.plot_line_graph(
             x_values=[min(x_values), max(x_values)],
             y_values=[m * min(x_values) + b, m * max(x_values) + b],
             line_color=GREEN
         )
 
-        # Draw regression line
         self.play(Create(regression_line), run_time=1)
 
         lasso_regression = MathTex(
