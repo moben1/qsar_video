@@ -6,9 +6,9 @@ def scene_ensemble_learning(scene: Scene):
     scene.add(title)
 
     # add images of the 3 models in the left side of the screen
-    image1 = ImageMobject("../qsar_video/images/random_forest.png").scale(0.5).to_corner(DOWN + LEFT)
+    image1 = ImageMobject("../qsar_video/images/random_forest.png").scale(0.7).to_corner(DOWN + LEFT)
     image2 = ImageMobject("../qsar_video/images/catboost.png").scale(0.5).to_corner(UP + RIGHT)
-    image3 = ImageMobject("../qsar_video/images/xgboost.png").scale(0.5).to_corner(UP + LEFT)
+    image3 = ImageMobject("../qsar_video/images/xgboost.png").scale(0.4).to_corner(UP + LEFT)
     scene.play(FadeIn(image1), FadeIn(image2), FadeIn(image3), run_time=0.5)
 
     subsets_list = []

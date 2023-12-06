@@ -7,8 +7,8 @@ def scene_gan(scene: Scene):
     title = Tex("Réseau adverse génératif (GAN)", color=BLUE, font_size=48).to_edge(UP)
     scene.play(Write(title), run_time=0.5)
     scene.add(title)
-    subtitle = Text("Enrechir l'esemble de données via la génération de molécules synthétiques", color=BLUE,
-                    font_size=18).next_to(title, DOWN)
+    subtitle = Tex("Enrechir l'esemble de données via la génération de molécules synthétiques", color=BLUE,
+                   font_size=24).next_to(title, DOWN)
     scene.play(Write(subtitle), run_time=0.5)
 
     def create_layer(num_neurons, radius=0.1, buff=0.3):
@@ -59,7 +59,7 @@ def scene_gan(scene: Scene):
         for neuron1 in layer1:
             for neuron2 in layer2:
                 line_white = Line(neuron1.get_center(), neuron2.get_center(), buff=0.1).set_stroke(WHITE, 2)
-                line_green = Line(neuron1.get_center(), neuron2.get_center(), buff=0.1).set_stroke(GREEN, 2)
+                line_green = Line(neuron1.get_center(), neuron2.get_center(), buff=0.1).set_stroke(YELLOW, 2)
                 connections_white.add(line_white)
                 connections_green.add(line_green)
                 scene.add(line_white)
@@ -75,18 +75,18 @@ def scene_gan(scene: Scene):
 
         for i in range(len(network_layers) - 1):
             if i == 0:
-                layer1 = network_layers[i]
-                neuron_anims = [neuron.animate.set_fill(opacity=random(), color=color_to_use) for neuron in layer1]
+                current_layer = network_layers[i]
+                neuron_anims = [neuron.animate.set_fill(opacity=random(), color=color_to_use) for neuron in current_layer]
                 scene.play(AnimationGroup(*neuron_anims, lag_ration=0.1), run_time=0.35)
 
-            layer2 = network_layers[i + 1]
+            next_layer = network_layers[i + 1]
             connections_white, connections_green = all_connections[i]
 
             line_anims_to_green = [line.animate.set_opacity(1) for line in connections_green]
             scene.play(AnimationGroup(*line_anims_to_green, lag_ration=0.1), run_time=0.35)
 
             neuron_anims_layer2 = [neuron.animate.set_fill(opacity=random(), color=color_to_use) for neuron in
-                                   layer2]
+                                   next_layer]
             scene.play(AnimationGroup(*neuron_anims_layer2, lag_ration=0.1), run_time=0.35)
 
             line_anims_to_white = [line.animate.set_opacity(0) for line in connections_green]
