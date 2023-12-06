@@ -7,8 +7,8 @@ def scene_gan(scene: Scene):
     title = Tex("Réseau adverse génératif (GAN)", color=BLUE, font_size=48).to_edge(UP)
     scene.play(Write(title), run_time=0.5)
     scene.add(title)
-    subtitle = Text("Enrechir l'esemble de données via la génération de molécules synthétiques", color=BLUE,
-                    font_size=18).next_to(title, DOWN)
+    subtitle = Tex("Enrechir l'esemble de données via la génération de molécules synthétiques", color=BLUE,
+                   font_size=24).next_to(title, DOWN)
     scene.play(Write(subtitle), run_time=0.5)
 
     def create_layer(num_neurons, radius=0.1, buff=0.3):

@@ -9,6 +9,20 @@ def scene_regression(scene: Scene):
     scene.add(title)
     scene.play(Write(title), run_time=0.5)
 
+    lasso_regression = MathTex(
+        "Lasso: \\mathcal{L}_{1} = \\sum\\limits_{i=1}^{p}(y_{i}-x_{i}\\beta)^{2} + \\lambda\\sum\\limits_{j=1}^{n}|\\beta_{j}|",
+        color=WHITE, font_size=24).to_edge(RIGHT, buff=2)
+    ridge_regression = MathTex(
+        "Ridge: \\mathcal{L}_{2} = \\sum\\limits_{i=1}^{p}(y_{i}-x_{i}\\beta)^{2} + \\lambda\\sum\\limits_{j=1}^{n}\\beta^{2}_{j}",
+        color=WHITE, font_size=24).next_to(lasso_regression, DOWN)
+    elasticnet_regression = MathTex(
+        "ElasticNet: \\mathcal{L}_{elastic} = \\frac{\\sum\\limits_{i=1}^{p}(y_{i} - x_{i}\\beta)^{2}}{2p} + \\lambda(\\frac{1-\\alpha}{2} \\sum\\limits^{n}_{j=1}\\beta_{j}^{2} + \\alpha \\sum\\limits^{n}_{j=1}|\\beta_{j}|)",
+        color=WHITE, font_size=24).next_to(ridge_regression, DOWN)
+
+    scene.play(Write(lasso_regression))
+    scene.play(Write(ridge_regression))
+    scene.play(Write(elasticnet_regression))
+
     axes = Axes(
         x_range=[0, 12, 1],
         y_range=[0, 22, 1],
@@ -24,21 +38,6 @@ def scene_regression(scene: Scene):
     x_values, y_values, points = display_scatter_plot(scene, axes, colors=[PINK for _ in range(120)])
 
     display_regression_line(scene, axes, x_values, y_values)
-
-    lasso_regression = MathTex(
-        "Lasso: \\mathcal{L}_{1} = \\sum\\limits_{i=1}^{p}(y_{i}-x_{i}\\beta)^{2} + \\lambda\\sum\\limits_{j=1}^{n}|\\beta_{j}|",
-        color=WHITE, font_size=24).to_edge(RIGHT, buff=2)
-    scene.play(Write(lasso_regression))
-
-    ridge_regression = MathTex(
-        "Ridge: \\mathcal{L}_{2} = \\sum\\limits_{i=1}^{p}(y_{i}-x_{i}\\beta)^{2} + \\lambda\\sum\\limits_{j=1}^{n}\\beta^{2}_{j}",
-        color=WHITE, font_size=24).next_to(lasso_regression, DOWN)
-    scene.play(Write(ridge_regression))
-
-    elasticnet_regression = MathTex(
-        "ElasticNet: \\mathcal{L}_{elastic} = \\frac{\\sum\\limits_{i=1}^{p}(y_{i} - x_{i}\\beta)^{2}}{2p} + \\lambda(\\frac{1-\\alpha}{2} \\sum\\limits^{n}_{j=1}\\beta_{j}^{2} + \\alpha \\sum\\limits^{n}_{j=1}|\\beta_{j}|)",
-        color=WHITE, font_size=24).next_to(ridge_regression, DOWN)
-    scene.play(Write(elasticnet_regression))
     scene.play(FadeOut(Group(*scene.mobjects)), run_time=0.5)
 
 

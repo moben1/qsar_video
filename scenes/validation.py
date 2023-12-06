@@ -10,7 +10,7 @@ def scene_validation(scene: Scene):
     scene.add(title)
     scene.play(Write(title), run_time=0.5)
 
-    training_label = Text("Données d'entrainement", color=GREEN, font_size=18).to_edge(0.5 * UP + RIGHT)
+    training_label = Text("Données d'entrainement", color=GREEN, font_size=18).to_corner(UP + RIGHT)
     test_label = Text("Données de test", color=RED, font_size=18).next_to(training_label, DOWN)
     scene.play(Write(training_label), Write(test_label), run_time=0.5)
 
@@ -31,10 +31,10 @@ def scene_validation(scene: Scene):
 
     for i in range(5):
         if i == 0:
+            scene.play(Write(r_2), run_time=1)
             scene.play(Create(dataset_box), Create(axes), run_time=0.5)
             scene.play(LaggedStart(*[Create(fold) for fold in folds], lag_ratio=0.1), run_time=1)
             scene.play(LaggedStart(*[Write(label) for label in fold_labels], lag_ratio=0.1), run_time=1)
-            scene.play(Write(r_2), run_time=1)
 
         colors = get_colors(120)
         test_fold = folds[i]

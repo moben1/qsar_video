@@ -12,6 +12,7 @@ class CompleteVideo(Scene):
 
     def construct(self):
         scene_pipeline(self)
+        self.wait(1)
         scene_gan(self)
         scene_regression(self)
         self.wait(1)

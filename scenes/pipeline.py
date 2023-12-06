@@ -17,7 +17,7 @@ def scene_pipeline(scene: Scene):
     boxes = [Rectangle(width=2.5, height=1.5, fill_color=c, fill_opacity=0.6, stroke_width=2).shift(
         4.5 * LEFT + i * 3 * RIGHT) for i, c in enumerate(colors)]
 
-    arrows = [Arrow(boxes[i].get_right(), boxes[i + 1].get_left(), buff=0.1, stroke_width=6, stroke_color=YELLOW)
+    arrows = [Arrow(boxes[i].get_right(), boxes[i + 1].get_left(), buff=1, stroke_width=10, stroke_color=YELLOW)
               for
               i in range(3)]
 
